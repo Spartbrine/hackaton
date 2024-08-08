@@ -1,38 +1,42 @@
 <div class="container-fluid h-100 p-0">
   <div class="d-flex justify-content-center align-items-center h-100">
-    <div class="d-flex justify-content-center align-middle">
-      <form class="form">
-        <p class="title">¡Bienvenido! </p>
-        <p class="message">Registrate para acceder a los post. </p>
-            <div class="flex">
-            <label>
-                <input required="" placeholder="" type="text" class="input">
-                <span>Firstname</span>
-            </label>
-
-            <label>
-                <input required="" placeholder="" type="text" class="input">
-                <span>Lastname</span>
-            </label>
-        </div>
-
-        <label>
-            <input required="" placeholder="" type="email" class="input">
-            <span>Email</span>
-        </label>
-
-        <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>Password</span>
-        </label>
-        <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>Confirm password</span>
-        </label>
-        <button class="submit">Submit</button>
-        <p class="signin">Already have an acount ? <a href="#">Signin</a> </p>
-      </form>
-
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <form class="form">
+          <p class="title">¡Bienvenido! </p>
+          <p class="message">Registrate para acceder a los post. </p>
+          <div class="flex">
+              <label>
+                  <input required placeholder="" type="text" class="input required">
+                  <span>Nombre(s)</span>
+              </label>
+  
+              <label>
+                  <input required placeholder="" type="text" class="input">
+                  <span>Lastname</span>
+              </label>
+          </div>
+  
+          <label>
+              <input required="" placeholder="" type="email" class="input">
+              <span>Correo</span>
+          </label>
+  
+          <label>
+              <input required="" placeholder="" type="password" class="input">
+              <span>Contraseña</span>
+          </label>
+          <label>
+              <input required="" placeholder="" type="password" class="input">
+              <span>Confirmar contraseña</span>
+          </label>
+          <button class="submit">Registrarse</button>
+          <p class="signin">¿Ya tienes una cuenta? <a href="/register">Iniciar Sesión</a> </p>
+        </form>
+      </div>
+      <div class="col-md-6 d-none d-md-block">
+        <img src="">
+      </div>
     </div>
   </div>
 
