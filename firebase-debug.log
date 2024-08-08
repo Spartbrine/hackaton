@@ -1,0 +1,21 @@
+[debug] [2024-08-08T17:47:23.908Z] ----------------------------------------------------------------------
+[debug] [2024-08-08T17:47:23.912Z] Command:       C:\Users\honde\AppData\Local\fnm_multishells\11544_1723137559901\node.exe C:\Users\honde\AppData\Local\fnm_multishells\11544_1723137559901\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-08-08T17:47:23.912Z] CLI Version:   13.13.0
+[debug] [2024-08-08T17:47:23.912Z] Platform:      win32
+[debug] [2024-08-08T17:47:23.913Z] Node Version:  v22.3.0
+[debug] [2024-08-08T17:47:23.913Z] Time:          Thu Aug 08 2024 11:47:23 GMT-0600 (hora estándar central)
+[debug] [2024-08-08T17:47:23.913Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-08-08T17:47:23.939Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-08-08T17:47:23.939Z] > authorizing via signed-in user (tutoruialsspartan@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\honde\OneDrive\Azar\Documentos\PROGRAMACION\Hackathon\hackaton
+
