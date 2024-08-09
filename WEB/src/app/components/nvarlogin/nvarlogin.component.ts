@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './nvarlogin.component.scss'
 })
 export class NvarloginComponent {
-
+  logout(){
+    localStorage.clear()
+    
+  }
 }
