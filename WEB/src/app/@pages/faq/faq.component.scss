@@ -1,32 +1,65 @@
-// SCSS para la sección de preguntas frecuentes
-
 .container {
-  max-width: 800px;
-}
-
-.accordion-button {
-  background-color: #f8f9fa; // Fondo claro para los botones del acordeón
-  border: 1px solid #dee2e6; // Borde gris claro
-  color: #333; // Color del texto
-  font-weight: 500;
-
-  &:hover {
-    background-color: #e9ecef; // Color de fondo al pasar el mouse
-    border-color: #ced4da; // Color del borde al pasar el mouse
+  .faq-title {
+    font-size: 2rem; // Tamaño de fuente del título
+    font-weight: bold; // Negrita
+    color: #343a40; // Color del texto
+    padding: 10px 20px; // Espaciado interno
+    background-color: #e9ecef; // Fondo
+    border-radius: 0.5rem; // Bordes redondeados
+    border: 2px solid #dee2e6; // Borde
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra
+    display: inline-block; // Ajustar al contenido
   }
 
-  &.collapsed {
-    color: #007bff; // Color del texto para botones colapsados
+  .accordion-button {
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    color: #343a40;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.collapsed {
+      background-color: #f8f9fa;
+      color: #007bff;
+    }
+
+    &:not(.collapsed) {
+      background-color: #007bff;
+      color: #ffffff;
+      border-color: #007bff;
+
+      &:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+    }
   }
-}
 
-.accordion-body {
-  background-color: #ffffff; // Fondo blanco para el cuerpo del acordeón
-  color: #666; // Color del texto
-  border-top: 1px solid #dee2e6; // Borde superior gris claro
-  padding: 15px;
-}
+  .accordion-body {
+    font-size: 14px;
+    color: #495057;
+    background-color: #f1f3f5;
+    border-top: 1px solid #dee2e6;
+    padding: 1rem;
+  }
 
-h2 {
-  color: #333; // Color del título
+  .accordion-item {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 0;
+    }
+  }
 }
