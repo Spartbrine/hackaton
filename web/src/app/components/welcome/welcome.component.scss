@@ -1,32 +1,123 @@
-<<<<<<< HEAD
-.navbar-brand {
+body {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem; /* Ajusta el tamaño de fuente según sea necesario */
-  font-weight: 600; /* Negrita para un estilo más destacado */
-  background: linear-gradient(to right, #ff6f00, #c74a0b); /* Cambia los colores del degradado aquí */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Agrega una sombra ligera al texto para más contraste */
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
-.navbar-toggler-icon {
-  width: 24px; /* Ajusta el tamaño aquí */
-  height: 24px; /* Ajusta el tamaño aquí */
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" fill="%23000"/%3E%3C/svg%3E'); /* Reemplaza el ícono aquí si lo deseas */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6f00;
+  text-transform: uppercase;
 }
 
 .navbar-toggler {
-  border: none; /* Elimina el borde si es necesario */
+  border: none;
+  outline: none;
 }
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" fill="%23ff6f00"/%3E%3C/svg%3E');
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #ff6f00;
+  transition: color 0.3s ease-in-out;
+}
+
+.carousel-item img {
+  max-height: 650px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.carousel-caption h5 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.carousel-caption p {
+  font-size: 1rem;
+  color: #dddddd;
+}
+
 .card {
-  margin: 30px; /* Espaciado entre tarjetas */
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza el cambio de estilos */
+  margin: 20px 0;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+  border-radius: 15px 15px 0 0;
+}
+
+.card-body {
+  padding: 20px;
+  text-align: left;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
 }
 
 .card:hover {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+  transform: translateY(-10px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
 }
-=======
->>>>>>> c9eb191c058b8e0d596be5508e413c713ce66784
+
+.container {
+  padding: 30px 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ff6f00;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .carousel-item img {
+      max-height: 450px;
+  }
+
+  .carousel-caption h5 {
+      font-size: 1.5rem;
+  }
+
+  .card {
+      margin: 15px 0;
+  }
+
+  .navbar-brand {
+      font-size: 1.2rem;
+  }
+}
