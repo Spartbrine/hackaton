@@ -1,52 +1,85 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{
+    UserController,
+    PsychologicalController,
+    AnalysistestController,
+    CommentController,
+    PublicationController,
+    StoreController,
+    ReviewController,
+    NotificationController
+};
 
+// Rutas para UserController
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::patch('/{id}', [UserController::class, 'updatePartial']);
+});
 
-use App\Http\Controllers\UserController;
+// Rutas para PsychologicalController
+Route::prefix('psychological')->group(function () {
+    Route::get('/', [PsychologicalController::class, 'index']);
+    Route::post('/', [PsychologicalController::class, 'store']);
+    Route::get('/{id}', [PsychologicalController::class, 'show']);
+    Route::put('/{id}', [PsychologicalController::class, 'update']);
+    Route::patch('/{id}', [PsychologicalController::class, 'updatePartial']);
+});
 
-Route::get('/login/{id}', [UserController::class, 'show']);
-Route::post('/registration', [UserController::class, 'store']);
-Route::get('/all', [UserController::class, 'index']);
+// Rutas para AnalysistestController
+Route::prefix('analysistests')->group(function () {
+    Route::get('/', [AnalysistestController::class, 'index']);
+    Route::post('/', [AnalysistestController::class, 'store']);
+    Route::get('/{idtest}', [AnalysistestController::class, 'show']);
+    Route::put('/{idtest}', [AnalysistestController::class, 'update']);
+    Route::patch('/{idtest}', [AnalysistestController::class, 'updatePartial']);
+});
 
+// Rutas para CommentController
+Route::prefix('comments')->group(function () {
+    Route::get('/', [CommentController::class, 'index']);
+    Route::post('/', [CommentController::class, 'store']);
+    Route::get('/{id}', [CommentController::class, 'show']);
+    Route::put('/{id}', [CommentController::class, 'update']);
+    Route::patch('/{id}', [CommentController::class, 'updatePartial']);
+});
 
-use App\Http\Controllers\TestController;
-Route::get('/test/{id}', [TestController::class, 'show']);
-Route::post('/test', [TestController::class, 'store']);
-Route::get('/tests', [TestController::class, 'index']);
+// Rutas para PublicationController
+Route::prefix('publications')->group(function () {
+    Route::get('/', [PublicationController::class, 'index']);
+    Route::post('/', [PublicationController::class, 'store']);
+    Route::get('/{id}', [PublicationController::class, 'show']);
+    Route::put('/{id}', [PublicationController::class, 'update']);
+    Route::patch('/{id}', [PublicationController::class, 'updatePartial']);
+});
 
-// Store routes
-use App\Http\Controllers\StoreController;
-Route::get('/store/{id}', [StoreController::class, 'show']);
-Route::post('/store', [StoreController::class, 'store']);
-Route::get('/stores', [StoreController::class, 'index']);
+// Rutas para StoreController
+Route::prefix('stores')->group(function () {
+    Route::get('/', [StoreController::class, 'index']);
+    Route::post('/', [StoreController::class, 'store']);
+    Route::get('/{id}', [StoreController::class, 'show']);
+    Route::put('/{id}', [StoreController::class, 'update']);
+    Route::patch('/{id}', [StoreController::class, 'updatePartial']);
+});
 
-// Publication routes
-use App\Http\Controllers\PublicationController;
-Route::get('/publication/{id}', [PublicationController::class, 'show']);
-Route::post('/publication', [PublicationController::class, 'store']);
-Route::get('/publications', [PublicationController::class, 'index']);
+// Rutas para ReviewController
+Route::prefix('reviews')->group(function () {
+    Route::get('/', [ReviewController::class, 'index']);
+    Route::post('/', [ReviewController::class, 'store']);
+    Route::get('/{id}', [ReviewController::class, 'show']);
+    Route::put('/{id}', [ReviewController::class, 'update']);
+    Route::patch('/{id}', [ReviewController::class, 'updatePartial']);
+});
 
-// Psychological routes
-use App\Http\Controllers\PsychologicalController;
-Route::get('/psychological/{id}', [PsychologicalController::class, 'show']);
-Route::post('/psychological', [PsychologicalController::class, 'store']);
-Route::get('/psychologicals', [PsychologicalController::class, 'index']);
-
-// Notification routes
-use App\Http\Controllers\NotificationController;
-Route::get('/notification/{id}', [NotificationController::class, 'show']);
-Route::post('/notification', [NotificationController::class, 'store']);
-Route::get('/notifications', [NotificationController::class, 'index']);
-
-// Comment routes
-use App\Http\Controllers\CommentController;
-Route::get('/comment/{id}', [CommentController::class, 'show']);
-Route::post('/comment', [CommentController::class, 'store']);
-Route::get('/comments', [CommentController::class, 'index']);
-
-// Analysistest routes
-use App\Http\Controllers\AnalysistestController;
-Route::get('/analysistest/{id}', [AnalysistestController::class, 'show']);
-Route::post('/analysistest', [AnalysistestController::class, 'store']);
-Route::get('/analysistests', [AnalysistestController::class, 'index']);
+// Rutas para NotificationController
+Route::prefix('notifications')->group(function () {
+    Route::get('/', [NotificationController::class, 'index']);
+    Route::post('/', [NotificationController::class, 'store']);
+    Route::get('/{id}', [NotificationController::class, 'show']);
+    Route::put('/{id}', [NotificationController::class, 'update']);
+    Route::patch('/{id}', [NotificationController::class, 'updatePartial']);
+});

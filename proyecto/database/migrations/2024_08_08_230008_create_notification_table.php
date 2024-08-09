@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->string('email');
-            $table->string('professional_cell');
             $table->boolean('read');
             $table->timestamps();
         });

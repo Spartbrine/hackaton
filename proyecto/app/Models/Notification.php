@@ -15,7 +15,12 @@ class Notification extends Model
         'id',
         'type',
         'email',
-        'professional_cell',
         'read'
     ];
+
+    public function email (){
+        // $this->hasOne(Category::class, 'id', 'category_id'); Incorrecto
+        return $this->belongsTo(Users::class, 'email'); //Para belongsTo unicamente es el campo con el que se debe buscar
+    }
+
 }

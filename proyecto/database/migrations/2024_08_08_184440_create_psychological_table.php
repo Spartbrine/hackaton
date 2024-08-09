@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('psychological', function (Blueprint $table) {
-            $table->string('name');
-            $table->string('lastname');
             $table->string('professional_cell')->unique()->primary();
             $table->string('whatsapp_link')->unique();
-            $table->string('review');
             $table->timestamps();
         });
     }

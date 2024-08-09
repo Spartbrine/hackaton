@@ -2,67 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:user', // Verifica el nombre de tu tabla.
-            'name' => 'required|max:255',
-            'lastname' => 'required|max:255', 
-            'password' => [
-                'required',
-                'regex:/^(?=.*[A-Za-z])(?=.*\d{4})([A-Za-z\d]){8,10}$/'
-            ]
-        ]);
-
-        if ($validator->fails()) {
-            $data = [
-                'message' => 'Error en la validación de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
-            ];
-            return response()->json($data, 400);
-        }
-
-        $user = Users::create([
-            'email' => $request->email,
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'password' => bcrypt($request->password) 
-        ]);
-
-        if (!$user) {
-            $data = [
-                'message' => 'Error al crear el usuario',
-                'status' => 500
-            ];
-            return response()->json($data, 500);
-        }
-
-        $data = [
-            'user' => $user,
-            'status' => 201
-        ];
-
-        return response()->json($data, 201);
-    }
-
     public function index()
     {
         $users = Users::all();
-
-        if ($users->isEmpty()) {
-            $data = [
-                'message' => 'No se encontraron usuarios',
-                'status' => 200
-            ];
-            return response()->json($data, 200);
-        }
 
         $data = [
             'users' => $users,
@@ -72,23 +21,113 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
 
-    public function show($id)
+    public function store(Request $request)
     {
-        $user = Users::find($id);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:user',
+            'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'password' => 'required|min:8'
+        ]);
 
-        if (!$user) {
-            $data = [
-                'message' => 'Usuario no encontrado',
-                'status' => 404
-            ];
-            return response()->json($data, 404);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
         }
 
-        $data = [
+        $user = Users::create($request->all());
+
+        return response()->json([
+            'user' => $user,
+            'status' => 201
+        ], 201);
+    }
+
+    public function show($email)
+    {
+        $user = Users::find($email);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Usuario no encontrado',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
             'user' => $user,
             'status' => 200
-        ];
+        ], 200);
+    }
 
-        return response()->json($data, 200);
+    public function update(Request $request, $email)
+    {
+        $user = Users::find($email);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Usuario no encontrado',
+                'status' => 404
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'max:255',
+            'lastname' => 'max:255',
+            'password' => 'min:8'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
+        }
+
+        $user->update($request->all());
+
+        return response()->json([
+            'message' => 'Usuario actualizado',
+            'user' => $user,
+            'status' => 200
+        ], 200);
+    }
+
+    public function updatePartial(Request $request, $email)
+    {
+        $user = Users::find($email);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Usuario no encontrado',
+                'status' => 404
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'max:255',
+            'lastname' => 'max:255',
+            'password' => 'min:8'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
+        }
+
+        $user->update($request->only('name', 'lastname', 'password'));
+
+        return response()->json([
+            'message' => 'Usuario actualizado',
+            'user' => $user,
+            'status' => 200
+        ], 200);
     }
 }

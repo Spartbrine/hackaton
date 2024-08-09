@@ -12,10 +12,14 @@ class Psychological extends Model
     protected $table = 'psychological';
 
     protected $fillable = [
-        'name',
-        'lastname',
+        'email',
         'professional_cell',
-        'whatsapp_link',
-        'review'
+        'whatsapp_link'
     ];
+
+    public function email (){
+        // $this->hasOne(Category::class, 'id', 'category_id'); Incorrecto
+        return $this->belongsTo(Users::class, 'email'); //Para belongsTo unicamente es el campo con el que se debe buscar
+    }
+
 }

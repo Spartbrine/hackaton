@@ -6,16 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('analysistest', function (Blueprint $table) {
-            $table->id('idtest');
-            $table->string('idquestion');
-            $table->string('idanswer');
-            $table->string('email');
+        Schema::create('questions', function (Blueprint $table) {
+            $table->string('idquestion')->unique()->primary();
+            $table->string('quiestion')->unique();     
             $table->timestamps();
         });
     }
@@ -25,6 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('analysistest');
+        Schema::dropIfExists('test');
     }
 };

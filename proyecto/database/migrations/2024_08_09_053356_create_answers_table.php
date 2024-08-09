@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('analysistest', function (Blueprint $table) {
-            $table->id('idtest');
-            $table->string('idquestion');
-            $table->string('idanswer');
-            $table->string('email');
+        Schema::create('answers', function (Blueprint $table) {
+            $table->string('idanswers')->unique()->primary();
+            $table->string('answers')->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('analysistest');
+        Schema::dropIfExists('answers');
     }
 };

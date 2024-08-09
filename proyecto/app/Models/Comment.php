@@ -14,6 +14,12 @@ class Comment extends Model
     protected $fillable = [
         'id',
         'description',
-        'professional_cell'
+        'email'
     ];
+
+    public function email (){
+       
+        return $this->belongsTo(Users::class, 'email'); 
+    }
+
 }

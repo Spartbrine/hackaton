@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Analysistest;
+use app\Http\Controllers\Controller;
+use app\Models\Analysistest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class AnalysistestController extends Controller
 {
+    public function index()
+    {
+        $analysistests = Analysistest::with(['email', 'idquestion', 'idanswer'])->get();
+
+        $data = [
+            'analysistests' => $analysistests,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'question' => 'required|max:255',
-            'answer' => 'required|max:255',
+            'idtest' => 'required',
+            'idquestion' => 'required',
+            'idanswer' => 'required',
             'email' => 'required|email'
         ]);
 
@@ -26,43 +40,19 @@ class AnalysistestController extends Controller
 
         $analysistest = Analysistest::create($request->all());
 
-        if (!$analysistest) {
-            return response()->json([
-                'message' => 'Error al crear el análisis del test',
-                'status' => 500
-            ], 500);
-        }
-
         return response()->json([
             'analysistest' => $analysistest,
             'status' => 201
         ], 201);
     }
 
-    public function index()
+    public function show($idtest)
     {
-        $analysistests = Analysistest::all();
-
-        if ($analysistests->isEmpty()) {
-            return response()->json([
-                'message' => 'No se encontraron análisis de test',
-                'status' => 200
-            ], 200);
-        }
-
-        return response()->json([
-            'analysistests' => $analysistests,
-            'status' => 200
-        ], 200);
-    }
-
-    public function show($id)
-    {
-        $analysistest = Analysistest::find($id);
+        $analysistest = Analysistest::find($idtest);
 
         if (!$analysistest) {
             return response()->json([
-                'message' => 'Análisis de test no encontrado',
+                'message' => 'Test no encontrado',
                 'status' => 404
             ], 404);
         }
@@ -72,4 +62,73 @@ class AnalysistestController extends Controller
             'status' => 200
         ], 200);
     }
+
+    public function update(Request $request, $idtest)
+    {
+        $analysistest = Analysistest::find($idtest);
+
+        if (!$analysistest) {
+            return response()->json([
+                'message' => 'Test no encontrado',
+                'status' => 404
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'idquestion' => 'required',
+            'idanswer' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
+        }
+
+        $analysistest->update($request->all());
+
+        return response()->json([
+            'message' => 'Test actualizado',
+            'analysistest' => $analysistest,
+            'status' => 200
+        ], 200);
+    }
+
+    public function updatePartial(Request $request, $idtest)
+    {
+        $analysistest = Analysistest::find($idtest);
+
+        if (!$analysistest) {
+            return response()->json([
+                'message' => 'Test no encontrado',
+                'status' => 404
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'idquestion' => 'required',
+            'idanswer' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
+        }
+
+        $analysistest->update($request->only('idquestion', 'idanswer', 'email'));
+
+        return response()->json([
+            'message' => 'Test actualizado',
+            'analysistest' => $analysistest,
+            'status' => 200
+        ], 200);
+    }
 }
+
