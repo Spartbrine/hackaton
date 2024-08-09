@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   ver_password : string = '';
+  same_password : boolean = true;
   registerForm = new FormGroup(
   {
     firstName: new FormControl('', [Validators.required]),
@@ -21,21 +22,22 @@ export class RegisterComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required])
   },
-  {
-    validators: this.passwordMatchValidator
-  });
+  );
 
-  passwordMatchValidator(): ValidationErrors | null {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password')?.value;
-      const confirmPassword = control.get('confirmPassword')?.value;
-
-      return password !== confirmPassword ? { mismatch: true } : null;
-    };
+  passwordMatchValidator(): boolean {
+    if(this.registerForm.get('password')?.value == this.registerForm.get('confirmPassword')?.value){
+      console.log('Contraseña igual')
+      this.same_password = true
+      return true
+    } else {
+      console.log(`Contraseña igualn't`)
+      this.same_password = false
+      return false
+    }
   }
 
   onSubmit() {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid && this.passwordMatchValidator() == true) {
       console.log(this.registerForm.value);
     }
   }
