@@ -11,7 +11,8 @@ export interface User extends Model {
 }
 
 export interface Post extends Model {
-
+  interactions:number;
+  description:string;
   comments?:Comment[]
 }
 
