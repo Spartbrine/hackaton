@@ -1,6 +1,46 @@
 <div class="container-fluid h-100 w-100">
   <app-navbar></app-navbar>
-  <div class="pt-4">
-    <h5 class="mt-5 pt-2 text-center">Preguntas Frecuentes</h5>
+  <<div class="container my-5">
+    <h2 class="text-center mb-4">Preguntas Frecuentes</h2>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            ¿Cómo se protege mi privacidad durante las sesiones con un psicólogo?
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Los psicólogos están obligados a seguir estrictas normas de confidencialidad. Toda la información compartida durante las sesiones es confidencial y solo puede ser divulgada en circunstancias excepcionales, como riesgo para la vida.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            ¿Qué información se recopila durante las sesiones?
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Se recopila información relevante para el tratamiento y diagnóstico, como antecedentes personales, historial médico y detalles de la situación actual. Toda esta información es utilizada únicamente con fines terapéuticos.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            ¿Qué sucede si el psicólogo debe compartir mi información por ley?
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            En situaciones excepcionales donde la ley requiere la divulgación, como casos de abuso o riesgo inminente para la vida, el psicólogo está obligado a compartir la información necesaria con las autoridades pertinentes.
+          </div>
+        </div>
+      </div>
+      <!-- Agrega más preguntas aquí -->
+    </div>
   </div>
+
 </div>
