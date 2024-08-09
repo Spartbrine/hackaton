@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+<div class="container-fluid h-100 p-0 w-100">
+  <div class="d-flex align-items-center h-100 w-100">
+    <div class="row w-100">
+      <div class="col-6 p-0 d-flex justify-content-center w-50">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+          <p class="title">¡Bienvenido!</p>
+          <p class="message">Regístrate para poderte brindar ayuda.</p>
+
+          <div class="flex">
+            <label>
+              <input formControlName="firstName" placeholder="" type="text" class="input">
+              <span>Nombre(s)</span>
+              <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error">
+                El nombre es requerido.
+              </div>
+            </label>
+
+            <label>
+              <input formControlName="lastName" placeholder="" type="text" class="input">
+              <span>Apellido(s)</span>
+              <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error">
+                El apellido es requerido.
+              </div>
+            </label>
+          </div>
+
+          <label>
+            <input formControlName="email" placeholder="" type="text" class="input">
+            <span>Correo</span>
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+              Debe ser un correo válido.
+            </div>
+          </label>
+
+          <label>
+            <input [type]="passwordFieldType" formControlName="password" placeholder="" class="input" required>
+            <span>Contraseña</span>
+            <mat-icon class="password-toggle" (click)="togglePasswordVisibility('1')">
+              {{ passwordFieldType === 'password' ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <div *ngIf="registerForm.get('password')!.invalid && registerForm.get('password')!.touched" class="error">
+              La contraseña debe tener al menos 8 caracteres
+            </div>
+          </label>
+
+          <label>
+            <input (input)="passwordMatchValidator()" [type]="passwordFieldType2" formControlName="confirmPassword" placeholder="" class="input" required>
+            <span>Confirmar contraseña</span>
+            <mat-icon class="password-toggle" (click)="togglePasswordVisibility('2')">
+              {{ passwordFieldType2 === 'password' ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <div *ngIf="!same_password" class="error">
+              Las contraseñas no coinciden.
+            </div>
+          </label>
+
+          <button type="submit" class="submit" [disabled]="registerForm.invalid">Registrarse</button>
+
+          <p class="signin">¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+        </form>
+
+      </div>
+      <div class="col-6 d-none d-md-block align-self-center p-0 w-50">
+        <img class="img-fluid"
+        src="https://cdn-3.expansion.mx/dims4/default/5acea81/2147483647/strip/true/crop/1254x836+0+0/resize/1800x1200!/format/webp/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2F1e%2Ff1%2Fb433b3fc4ab99aa6b100ed079bb6%2Fmujeres-redes-apoyo.jpg">
+      </div>
+    </div>
+  </div>
+
+</div>
