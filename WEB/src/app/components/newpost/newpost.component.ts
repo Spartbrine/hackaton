@@ -20,7 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 export class NewpostComponent {
   dialog = inject(MatDialog)
   openDialog(){
-    this.dialog.open(CreatePostDialogComponent)
+    this.dialog.open(CreatePostDialogComponent, {
+      width:'50%',
+      height:'50%'
+    })
   }
 }
 
