@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path:'welcome',
-    loadComponent: () => import('./components/welcome/welcome.component').then(m => m.WelcomeComponent)
+    loadComponent: () => import('./components/welcome/welcome.component').then(m => m.WelcomeComponent),
   },
   {
     path:'login',

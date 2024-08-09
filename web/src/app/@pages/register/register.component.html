@@ -3,35 +3,63 @@
   <div class="d-flex align-items-center h-100 w-100">
     <div class="row w-100">
       <div class="col-6 p-0 d-flex justify-content-center w-50">
-        <form class="form">
-          <p class="title">¡Bienvenido! </p>
-          <p class="message">Registrate para poderte brindar ayuda. </p>
-          <div class="flex">
-              <label>
-                  <input required placeholder="" type="text" class="input required">
-                  <span>Nombre(s)</span>
-              </label>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+          <p class="title">¡Bienvenido!</p>
+          <p class="message">Regístrate para poderte brindar ayuda.</p>
 
-              <label>
-                  <input required placeholder="" type="text" class="input">
-                  <span>Apellido(s)</span>
-              </label>
+          <div class="flex">
+            <label>
+              <input formControlName="firstName" placeholder="" type="text" class="input">
+              <span>Nombre(s)</span>
+              <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error">
+                El nombre es requerido.
+              </div>
+            </label>
+
+            <label>
+              <input formControlName="lastName" placeholder="" type="text" class="input">
+              <span>Apellido(s)</span>
+              <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error">
+                El apellido es requerido.
+              </div>
+            </label>
           </div>
+
           <label>
-              <input required="" placeholder="" type="text" class="input">
-              <span>Correo</span>
+            <input formControlName="email" placeholder="" type="text" class="input">
+            <span>Correo</span>
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+              Debe ser un correo válido.
+            </div>
           </label>
+
           <label>
-              <input required="" placeholder="" type="password" class="input">
-              <span>Contraseña</span>
+            <input [type]="passwordFieldType" formControlName="password" placeholder="" class="input" required>
+            <span>Contraseña</span>
+            <mat-icon class="password-toggle" (click)="togglePasswordVisibility('1')">
+              {{ passwordFieldType === 'password' ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <div *ngIf="registerForm.get('password')!.invalid && registerForm.get('password')!.touched" class="error">
+              La contraseña debe tener al menos 8 caracteres
+            </div>
           </label>
+
           <label>
-              <input [(ngModel)]="ver_password" id="ver_password" name="ver_password" #ver_password="ngModel" required="" placeholder="" type="password" class="input">
-              <span>Confirmar contraseña</span>
+            <input [type]="passwordFieldType2" formControlName="password" placeholder="" class="input" required>
+            <span>Confirmar contraseña</span>
+            <mat-icon class="password-toggle" (click)="togglePasswordVisibility('2')">
+              {{ passwordFieldType2 === 'password' ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <div *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched" class="error">
+              Las contraseñas no coinciden.
+            </div>
           </label>
-          <button [disabled]="" class="submit">Registrarse</button>
-          <p class="signin">¿Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a> </p>
+
+          <button type="submit" class="submit" [disabled]="registerForm.invalid">Registrarse</button>
+
+          <p class="signin">¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
         </form>
+
       </div>
       <div class="col-6 d-none d-md-block align-self-center p-0 w-50">
         <img class="img-fluid"

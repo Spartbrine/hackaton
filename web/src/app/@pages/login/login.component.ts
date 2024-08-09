@@ -16,7 +16,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   router = inject(Router)
-  ver_password = '';
+  ver_password : string = '';
+  error_msg = '';
   user : User = {
     id:0,
     name:'',
@@ -38,7 +39,7 @@ export class LoginComponent {
         this.saveFormData()
         this.router.navigateByUrl('');
       } else {
-        console.log('Error al logearse')
+        this.error_msg = 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.';
       }
     }
   }
