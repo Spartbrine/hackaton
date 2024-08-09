@@ -11,22 +11,27 @@ class PublicationController extends Controller
 {
     public function index()
     {
-        $publications = Publication::with('email')->get();
+        $publications = Publication::all();
 
-        $data = [
+        if ($publications->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron publicaciones',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
             'publications' => $publications,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'description' => 'required|max:255',
-            'email' => 'required|email',
-            'interaction' => 'required'
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'user_id' => 'required|integer|exists:users,id'
         ]);
 
         if ($validator->fails()) {
@@ -37,7 +42,11 @@ class PublicationController extends Controller
             ], 400);
         }
 
-        $publication = Publication::create($request->all());
+        $publication = Publication::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => $request->user_id
+        ]);
 
         return response()->json([
             'publication' => $publication,
@@ -74,9 +83,9 @@ class PublicationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'description' => 'max:255',
-            'email' => 'email',
-            'interaction' => 'required'
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'user_id' => 'required|integer|exists:users,id'
         ]);
 
         if ($validator->fails()) {
@@ -87,7 +96,10 @@ class PublicationController extends Controller
             ], 400);
         }
 
-        $publication->update($request->all());
+        $publication->title = $request->title;
+        $publication->content = $request->content;
+        $publication->user_id = $request->user_id;
+        $publication->save();
 
         return response()->json([
             'message' => 'Publicación actualizada',
@@ -108,9 +120,9 @@ class PublicationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'description' => 'max:255',
-            'email' => 'email',
-            'interaction' => 'required'
+            'title' => 'string|max:255',
+            'content' => 'string',
+            'user_id' => 'integer|exists:users,id'
         ]);
 
         if ($validator->fails()) {
@@ -121,10 +133,22 @@ class PublicationController extends Controller
             ], 400);
         }
 
-        $publication->update($request->only('description', 'email', 'interaction'));
+        if ($request->has('title')) {
+            $publication->title = $request->title;
+        }
+
+        if ($request->has('content')) {
+            $publication->content = $request->content;
+        }
+
+        if ($request->has('user_id')) {
+            $publication->user_id = $request->user_id;
+        }
+
+        $publication->save();
 
         return response()->json([
-            'message' => 'Publicación actualizada',
+            'message' => 'Publicación actualizada parcialmente',
             'publication' => $publication,
             'status' => 200
         ], 200);

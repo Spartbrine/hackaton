@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use PharIo\Manifest\Email;
 
 return new class extends Migration
 {
@@ -17,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('password');
+            $table->boolean('typeuser');
             $table->timestamps();
         });
     }

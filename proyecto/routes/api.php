@@ -1,24 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    UserController,
-    PsychologicalController,
-    AnalysistestController,
-    CommentController,
-    PublicationController,
-    StoreController,
-    ReviewController,
-    NotificationController
-};
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PsychologicalController;
+use App\Http\Controllers\AnalysistestController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\NotificationController;
 
 // Rutas para UserController
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/', [UserController::class, 'store']);
-    Route::get('/{id}', [UserController::class, 'show']);
-    Route::put('/{id}', [UserController::class, 'update']);
-    Route::patch('/{id}', [UserController::class, 'updatePartial']);
+    Route::get('/{email}', [UserController::class, 'show']);
+    Route::put('/{email}', [UserController::class, 'update']);
+    Route::patch('/{email}', [UserController::class, 'updatePartial']);
 });
 
 // Rutas para PsychologicalController

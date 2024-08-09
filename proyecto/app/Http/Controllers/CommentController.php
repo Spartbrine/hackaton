@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use app\Http\Controllers\Controller;
-use app\Models\Comment;
+use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,21 +11,27 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $comments = Comment::with('email')->get();
+        $comments = Comment::all();
 
-        $data = [
+        if ($comments->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron comentarios',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
             'comments' => $comments,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'description' => 'required|max:255',
-            'email' => 'required|email'
+            'content' => 'required|string',
+            'user_id' => 'required|integer|exists:users,id',
+            'publication_id' => 'required|integer|exists:publications,id'
         ]);
 
         if ($validator->fails()) {
@@ -36,7 +42,11 @@ class CommentController extends Controller
             ], 400);
         }
 
-        $comment = Comment::create($request->all());
+        $comment = Comment::create([
+            'content' => $request->content,
+            'user_id' => $request->user_id,
+            'publication_id' => $request->publication_id
+        ]);
 
         return response()->json([
             'comment' => $comment,
@@ -73,8 +83,9 @@ class CommentController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'description' => 'max:255',
-            'email' => 'email'
+            'content' => 'required|string',
+            'user_id' => 'required|integer|exists:users,id',
+            'publication_id' => 'required|integer|exists:publications,id'
         ]);
 
         if ($validator->fails()) {
@@ -85,7 +96,10 @@ class CommentController extends Controller
             ], 400);
         }
 
-        $comment->update($request->all());
+        $comment->content = $request->content;
+        $comment->user_id = $request->user_id;
+        $comment->publication_id = $request->publication_id;
+        $comment->save();
 
         return response()->json([
             'message' => 'Comentario actualizado',
@@ -106,8 +120,9 @@ class CommentController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'description' => 'max:255',
-            'email' => 'email'
+            'content' => 'string',
+            'user_id' => 'integer|exists:users,id',
+            'publication_id' => 'integer|exists:publications,id'
         ]);
 
         if ($validator->fails()) {
@@ -118,10 +133,22 @@ class CommentController extends Controller
             ], 400);
         }
 
-        $comment->update($request->only('description', 'email'));
+        if ($request->has('content')) {
+            $comment->content = $request->content;
+        }
+
+        if ($request->has('user_id')) {
+            $comment->user_id = $request->user_id;
+        }
+
+        if ($request->has('publication_id')) {
+            $comment->publication_id = $request->publication_id;
+        }
+
+        $comment->save();
 
         return response()->json([
-            'message' => 'Comentario actualizado',
+            'message' => 'Comentario actualizado parcialmente',
             'comment' => $comment,
             'status' => 200
         ], 200);

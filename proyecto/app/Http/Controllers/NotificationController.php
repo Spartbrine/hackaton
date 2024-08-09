@@ -12,50 +12,46 @@ class NotificationController extends Controller
     public function index()
     {
         $notifications = Notification::all();
-        $data = [
+
+        if ($notifications->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron notificaciones',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
             'notifications' => $notifications,
             'status' => 200
-        ];
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'type' => 'required|max:255',
-            'email' => 'required|email|exists:users,email',
-            'read' => 'required|boolean'
+            'user_id' => 'required|integer|exists:users,id',
+            'content' => 'required|string',
+            'type' => 'required|string'
         ]);
 
         if ($validator->fails()) {
-            $data = [
+            return response()->json([
                 'message' => 'Error en la validación de los datos',
                 'errors' => $validator->errors(),
                 'status' => 400
-            ];
-            return response()->json($data, 400);
+            ], 400);
         }
 
         $notification = Notification::create([
-            'type' => $request->type,
-            'email' => $request->email,
-            'read' => $request->read
+            'user_id' => $request->user_id,
+            'content' => $request->content,
+            'type' => $request->type
         ]);
 
-        if (!$notification) {
-            $data = [
-                'message' => 'Error al crear la notificación',
-                'status' => 500
-            ];
-            return response()->json($data, 500);
-        }
-
-        $data = [
+        return response()->json([
             'notification' => $notification,
             'status' => 201
-        ];
-
-        return response()->json($data, 201);
+        ], 201);
     }
 
     public function show($id)
@@ -63,19 +59,16 @@ class NotificationController extends Controller
         $notification = Notification::find($id);
 
         if (!$notification) {
-            $data = [
+            return response()->json([
                 'message' => 'Notificación no encontrada',
                 'status' => 404
-            ];
-            return response()->json($data, 404);
+            ], 404);
         }
 
-        $data = [
+        return response()->json([
             'notification' => $notification,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function update(Request $request, $id)
@@ -83,53 +76,81 @@ class NotificationController extends Controller
         $notification = Notification::find($id);
 
         if (!$notification) {
-            $data = [
+            return response()->json([
                 'message' => 'Notificación no encontrada',
                 'status' => 404
-            ];
-            return response()->json($data, 404);
+            ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'type' => 'max:255',
-            'email' => 'email|exists:users,email',
-            'read' => 'boolean'
+            'user_id' => 'required|integer|exists:users,id',
+            'content' => 'required|string',
+            'type' => 'required|string'
         ]);
 
         if ($validator->fails()) {
-            $data = [
+            return response()->json([
                 'message' => 'Error en la validación de los datos',
                 'errors' => $validator->errors(),
                 'status' => 400
-            ];
-            return response()->json($data, 400);
+            ], 400);
+        }
+
+        $notification->user_id = $request->user_id;
+        $notification->content = $request->content;
+        $notification->type = $request->type;
+        $notification->save();
+
+        return response()->json([
+            'message' => 'Notificación actualizada',
+            'notification' => $notification,
+            'status' => 200
+        ], 200);
+    }
+
+    public function updatePartial(Request $request, $id)
+    {
+        $notification = Notification::find($id);
+
+        if (!$notification) {
+            return response()->json([
+                'message' => 'Notificación no encontrada',
+                'status' => 404
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'integer|exists:users,id',
+            'content' => 'string',
+            'type' => 'string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
+        }
+
+        if ($request->has('user_id')) {
+            $notification->user_id = $request->user_id;
+        }
+
+        if ($request->has('content')) {
+            $notification->content = $request->content;
         }
 
         if ($request->has('type')) {
             $notification->type = $request->type;
         }
 
-        if ($request->has('email')) {
-            $notification->email = $request->email;
-        }
-
-        if ($request->has('read')) {
-            $notification->read = $request->read;
-        }
-
         $notification->save();
 
-        $data = [
-            'message' => 'Notificación actualizada',
+        return response()->json([
+            'message' => 'Notificación actualizada parcialmente',
             'notification' => $notification,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
-    }
-
-    public function updatePartial(Request $request, $id)
-    {
-        return $this->update($request, $id);
+        ], 200);
     }
 }

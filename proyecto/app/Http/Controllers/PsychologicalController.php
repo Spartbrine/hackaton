@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -10,21 +11,26 @@ class PsychologicalController extends Controller
 {
     public function index()
     {
-        $psychological = Psychological::all();
+        $psychologicals = Psychological::all();
 
-        $data = [
-            'psychological' => $psychological,
+        if ($psychologicals->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron registros psicológicos',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
+            'psychologicals' => $psychologicals,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'professional_cell' => 'required|unique:psychological',
-            'whatsapp_link' => 'required|unique:psychological'
+            'description' => 'required|string|max:255',
+            'type' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -35,7 +41,10 @@ class PsychologicalController extends Controller
             ], 400);
         }
 
-        $psychological = Psychological::create($request->all());
+        $psychological = Psychological::create([
+            'description' => $request->description,
+            'type' => $request->type
+        ]);
 
         return response()->json([
             'psychological' => $psychological,
@@ -43,13 +52,13 @@ class PsychologicalController extends Controller
         ], 201);
     }
 
-    public function show($professional_cell)
+    public function show($id)
     {
-        $psychological = Psychological::find($professional_cell);
+        $psychological = Psychological::find($id);
 
         if (!$psychological) {
             return response()->json([
-                'message' => 'Psicólogo no encontrado',
+                'message' => 'Registro psicológico no encontrado',
                 'status' => 404
             ], 404);
         }
@@ -60,19 +69,20 @@ class PsychologicalController extends Controller
         ], 200);
     }
 
-    public function update(Request $request, $professional_cell)
+    public function update(Request $request, $id)
     {
-        $psychological = Psychological::find($professional_cell);
+        $psychological = Psychological::find($id);
 
         if (!$psychological) {
             return response()->json([
-                'message' => 'Psicólogo no encontrado',
+                'message' => 'Registro psicológico no encontrado',
                 'status' => 404
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'whatsapp_link' => 'unique:psychological'
+            'description' => 'required|string|max:255',
+            'type' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -83,28 +93,31 @@ class PsychologicalController extends Controller
             ], 400);
         }
 
-        $psychological->update($request->all());
+        $psychological->description = $request->description;
+        $psychological->type = $request->type;
+        $psychological->save();
 
         return response()->json([
-            'message' => 'Psicólogo actualizado',
+            'message' => 'Registro psicológico actualizado',
             'psychological' => $psychological,
             'status' => 200
         ], 200);
     }
 
-    public function updatePartial(Request $request, $professional_cell)
+    public function updatePartial(Request $request, $id)
     {
-        $psychological = Psychological::find($professional_cell);
+        $psychological = Psychological::find($id);
 
         if (!$psychological) {
             return response()->json([
-                'message' => 'Psicólogo no encontrado',
+                'message' => 'Registro psicológico no encontrado',
                 'status' => 404
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'whatsapp_link' => 'unique:psychological'
+            'description' => 'string|max:255',
+            'type' => 'string'
         ]);
 
         if ($validator->fails()) {
@@ -115,10 +128,18 @@ class PsychologicalController extends Controller
             ], 400);
         }
 
-        $psychological->update($request->only('whatsapp_link'));
+        if ($request->has('description')) {
+            $psychological->description = $request->description;
+        }
+
+        if ($request->has('type')) {
+            $psychological->type = $request->type;
+        }
+
+        $psychological->save();
 
         return response()->json([
-            'message' => 'Psicólogo actualizado',
+            'message' => 'Registro psicológico actualizado parcialmente',
             'psychological' => $psychological,
             'status' => 200
         ], 200);

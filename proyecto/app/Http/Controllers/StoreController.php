@@ -11,21 +11,27 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $stores = Store::with('email')->get();
+        $stores = Store::all();
 
-        $data = [
+        if ($stores->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron tiendas',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
             'stores' => $stores,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_publication' => 'required',
-            'email' => 'required|email'
+            'name' => 'required|string|max:255',
+            'location' => 'required|string',
+            'owner' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -36,7 +42,11 @@ class StoreController extends Controller
             ], 400);
         }
 
-        $store = Store::create($request->all());
+        $store = Store::create([
+            'name' => $request->name,
+            'location' => $request->location,
+            'owner' => $request->owner
+        ]);
 
         return response()->json([
             'store' => $store,
@@ -73,8 +83,9 @@ class StoreController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'id_publication' => 'required',
-            'email' => 'required|email'
+            'name' => 'required|string|max:255',
+            'location' => 'required|string',
+            'owner' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -85,7 +96,10 @@ class StoreController extends Controller
             ], 400);
         }
 
-        $store->update($request->all());
+        $store->name = $request->name;
+        $store->location = $request->location;
+        $store->owner = $request->owner;
+        $store->save();
 
         return response()->json([
             'message' => 'Tienda actualizada',
@@ -106,8 +120,9 @@ class StoreController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'id_publication' => 'required',
-            'email' => 'required|email'
+            'name' => 'string|max:255',
+            'location' => 'string',
+            'owner' => 'string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -118,10 +133,22 @@ class StoreController extends Controller
             ], 400);
         }
 
-        $store->update($request->only('id_publication', 'email'));
+        if ($request->has('name')) {
+            $store->name = $request->name;
+        }
+
+        if ($request->has('location')) {
+            $store->location = $request->location;
+        }
+
+        if ($request->has('owner')) {
+            $store->owner = $request->owner;
+        }
+
+        $store->save();
 
         return response()->json([
-            'message' => 'Tienda actualizada',
+            'message' => 'Tienda actualizada parcialmente',
             'store' => $store,
             'status' => 200
         ], 200);

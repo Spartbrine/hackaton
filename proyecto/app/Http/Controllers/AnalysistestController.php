@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use app\Http\Controllers\Controller;
-use app\Models\Analysistest;
+use App\Http\Controllers\Controller;
+use App\Models\Analysistest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,23 +11,26 @@ class AnalysistestController extends Controller
 {
     public function index()
     {
-        $analysistests = Analysistest::with(['email', 'idquestion', 'idanswer'])->get();
+        $analysistests = Analysistest::all();
 
-        $data = [
+        if ($analysistests->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron pruebas de análisis',
+                'status' => 404
+            ], 404);
+        }
+
+        return response()->json([
             'analysistests' => $analysistests,
             'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'idtest' => 'required',
-            'idquestion' => 'required',
-            'idanswer' => 'required',
-            'email' => 'required|email'
+            'name' => 'required|string|max:255',
+            'result' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -38,7 +41,10 @@ class AnalysistestController extends Controller
             ], 400);
         }
 
-        $analysistest = Analysistest::create($request->all());
+        $analysistest = Analysistest::create([
+            'name' => $request->name,
+            'result' => $request->result
+        ]);
 
         return response()->json([
             'analysistest' => $analysistest,
@@ -52,7 +58,7 @@ class AnalysistestController extends Controller
 
         if (!$analysistest) {
             return response()->json([
-                'message' => 'Test no encontrado',
+                'message' => 'Prueba de análisis no encontrada',
                 'status' => 404
             ], 404);
         }
@@ -69,15 +75,14 @@ class AnalysistestController extends Controller
 
         if (!$analysistest) {
             return response()->json([
-                'message' => 'Test no encontrado',
+                'message' => 'Prueba de análisis no encontrada',
                 'status' => 404
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'idquestion' => 'required',
-            'idanswer' => 'required',
-            'email' => 'required|email'
+            'name' => 'required|string|max:255',
+            'result' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -88,10 +93,12 @@ class AnalysistestController extends Controller
             ], 400);
         }
 
-        $analysistest->update($request->all());
+        $analysistest->name = $request->name;
+        $analysistest->result = $request->result;
+        $analysistest->save();
 
         return response()->json([
-            'message' => 'Test actualizado',
+            'message' => 'Prueba de análisis actualizada',
             'analysistest' => $analysistest,
             'status' => 200
         ], 200);
@@ -103,15 +110,14 @@ class AnalysistestController extends Controller
 
         if (!$analysistest) {
             return response()->json([
-                'message' => 'Test no encontrado',
+                'message' => 'Prueba de análisis no encontrada',
                 'status' => 404
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'idquestion' => 'required',
-            'idanswer' => 'required',
-            'email' => 'required|email'
+            'name' => 'string|max:255',
+            'result' => 'string'
         ]);
 
         if ($validator->fails()) {
@@ -122,13 +128,20 @@ class AnalysistestController extends Controller
             ], 400);
         }
 
-        $analysistest->update($request->only('idquestion', 'idanswer', 'email'));
+        if ($request->has('name')) {
+            $analysistest->name = $request->name;
+        }
+
+        if ($request->has('result')) {
+            $analysistest->result = $request->result;
+        }
+
+        $analysistest->save();
 
         return response()->json([
-            'message' => 'Test actualizado',
+            'message' => 'Prueba de análisis actualizada parcialmente',
             'analysistest' => $analysistest,
             'status' => 200
         ], 200);
     }
 }
-
