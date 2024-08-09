@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { User } from '../../shared/interfaces';
 import { NavbarComponent } from './../../components/navbar/navbar.component'
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { stringify } from 'querystring';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,6 +15,7 @@ import { stringify } from 'querystring';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  router = inject(Router)
   ver_password = '';
   user : User = {
     id:0,
@@ -32,13 +34,26 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Info Seteada', this.loginForm.value);
+      if(this.validateLogin() == true){
+        this.saveFormData()
+        this.router.navigateByUrl('');
+      } else {
+        console.log('Error al logearse')
+      }
     }
-    this.saveFormData()
   }
 
   saveFormData() {
     const formData = this.loginForm.value;
     localStorage.setItem('loginForm', JSON.stringify(formData));
+  }
+
+  validateLogin(): boolean{
+    if(this.loginForm.get('email')?.value =='pedro@correo.com' && this.loginForm.get('password')?.value == '12345678'){
+      return true
+    } else {
+      return false
+    }
   }
 
 
