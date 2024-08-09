@@ -1,0 +1,32 @@
+// SCSS para la sección de preguntas frecuentes
+
+.container {
+  max-width: 800px;
+}
+
+.accordion-button {
+  background-color: #f8f9fa; // Fondo claro para los botones del acordeón
+  border: 1px solid #dee2e6; // Borde gris claro
+  color: #333; // Color del texto
+  font-weight: 500;
+
+  &:hover {
+    background-color: #e9ecef; // Color de fondo al pasar el mouse
+    border-color: #ced4da; // Color del borde al pasar el mouse
+  }
+
+  &.collapsed {
+    color: #007bff; // Color del texto para botones colapsados
+  }
+}
+
+.accordion-body {
+  background-color: #ffffff; // Fondo blanco para el cuerpo del acordeón
+  color: #666; // Color del texto
+  border-top: 1px solid #dee2e6; // Borde superior gris claro
+  padding: 15px;
+}
+
+h2 {
+  color: #333; // Color del título
+}
