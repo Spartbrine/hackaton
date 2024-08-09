@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> d59be768aed7b18aeb278b11454d7a37b3125e98
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f7f7f7;
@@ -98,6 +102,51 @@ h1, h2, h3, h4, h5, h6 {
   color: #ff6f00;
 }
 
+.announcement-banner {
+  position: relative;
+  width: 100%;
+  height: 500px; // Ajusta la altura según sea necesario
+  background: url('https://worldcampus.saintleo.edu/img/article/que-es-y-por-que-es-importante-la-psicologia-del-desarrollo.webp') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); // Overlay oscuro
+    z-index: 1;
+  }
+}
+
+.announcement-content {
+  position: relative;
+  text-align: center;
+  color: #ffffff;
+  padding: 20px;
+  z-index: 2; // Asegura que el texto esté encima del overlay
+
+  h2, p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); // Sombra de texto para mejor legibilidad
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+}
+
+
 p {
   font-size: 1rem;
   line-height: 1.6;
@@ -110,6 +159,7 @@ footer a {
 footer a:hover {
   color: #ff6f00; /* Color de hover */
 }
+
 
 
 @media (max-width: 768px) {
@@ -129,3 +179,7 @@ footer a:hover {
       font-size: 1.2rem;
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d59be768aed7b18aeb278b11454d7a37b3125e98
