@@ -1,6 +1,9 @@
 <div>
   <app-nvarlogin></app-nvarlogin>
-  <app-newpost class="d-flex justify-content-center mt-1"></app-newpost>
+  @if(user.typeuser == '0')
+  {
+    <app-newpost class="d-flex justify-content-center mt-1"></app-newpost>
+  }
   <app-posts [posts]="posts"></app-posts>
 </div>
 

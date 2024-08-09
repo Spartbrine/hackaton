@@ -11,6 +11,7 @@ class PublicationController extends Controller
 {
     public function index()
 {
+
     $publications = Publication::orderBy('created_at', 'desc')->get();
 
     if ($publications->isEmpty()) {
@@ -54,7 +55,8 @@ class PublicationController extends Controller
 
     public function show($id)
     {
-        $publication = Publication::find($id);
+        // $publication = Publication::find($id);
+        $publication = Publication::with('comments')->findOrFail($id);
 
         if (!$publication) {
             return response()->json([

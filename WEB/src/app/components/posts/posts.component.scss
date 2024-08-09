@@ -1,0 +1,158 @@
+label{
+  color: rgb(0, 0, 0);
+  background-color: white;
+  transition: 2ms;
+}
+
+label:hover{
+  color:rgb(0, 0, 0);
+  background-color: rgb(227, 227, 227);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.post-form {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .profile-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .username {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+  }
+
+  .post-text {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    resize: none;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #0095f6;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #007bb5;
+    }
+  }
+}
+
+// Estilos para la sección de crear publicación
+.post-creation-container {
+  max-width: 800px;
+  min-width: 320px;
+  height: 80px;  // Hacerlo más delgado
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    border-color: #c0c0c0;
+  }
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+
+  .profile-icon {
+    width: 50px; // Mantener tamaño de ícono
+    height: 50px;
+    font-size: 50px;
+    color: #262626;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    border: 1px solid #dbdbdb;
+    padding: 8px;
+  }
+}
+
+.post-input-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  .post-label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    background-color: #fafafa;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  .post-text {
+    font-size: 16px; // Ajustar tamaño de texto
+    font-weight: 400;
+    margin: 0;
+    color: #262626;
+    flex: 1;
+  }
+
+  .add-icon {
+    font-size: 24px; // Ajustar tamaño de ícono
+    color: #009688;
+    margin-left: 10px;
+  }
+}
+

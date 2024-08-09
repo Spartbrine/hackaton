@@ -9,7 +9,7 @@ class Publication extends Model
 {
     use HasFactory;
 
-    protected $table = 'publication';
+    // protected $table = 'publications';
 
     protected $fillable = [
         'description',
@@ -20,6 +20,11 @@ class Publication extends Model
     public function email (){
         // $this->hasOne(Category::class, 'id', 'category_id'); Incorrecto
         return $this->belongsTo(Users::class, 'email'); //Para belongsTo unicamente es el campo con el que se debe buscar
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }

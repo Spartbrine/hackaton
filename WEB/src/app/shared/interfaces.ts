@@ -20,5 +20,8 @@ export interface Post extends Model {
 }
 
 export interface Comment extends Model {
+  description:string;
+  publication_id:number;
+  email:string;
 
 }

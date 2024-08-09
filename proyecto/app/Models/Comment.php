@@ -14,12 +14,18 @@ class Comment extends Model
     protected $fillable = [
         'id',
         'description',
-        'email'
+        'email',
+        'publication_id'
     ];
 
     public function email (){
-       
-        return $this->belongsTo(Users::class, 'email'); 
+
+        return $this->belongsTo(Users::class, 'email');
     }
+
+    public function publication (){
+        return $this->belongsTo(Publication::class, 'publication_id');
+    }
+
 
 }

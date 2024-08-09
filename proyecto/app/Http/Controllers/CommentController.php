@@ -26,8 +26,8 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'content' => 'required|string',
-            'user_id' => 'required|integer|exists:users,id',
+            'description' => 'required|string',
+            'email' => 'required|string',
             'publication_id' => 'required|integer|exists:publications,id'
         ]);
 
@@ -40,8 +40,8 @@ class CommentController extends Controller
         }
 
         $comment = Comment::create([
-            'content' => $request->content,
-            'user_id' => $request->user_id,
+            'description' => $request->description,
+            'email' => $request->email,
             'publication_id' => $request->publication_id
         ]);
 

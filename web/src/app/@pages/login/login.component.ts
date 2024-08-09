@@ -54,7 +54,7 @@ export class LoginComponent {
   }
 
   saveFormData() {
-    const formData = this.loginForm.value;
+    const formData = this.recoverUser;
     localStorage.setItem('loginForm', JSON.stringify(formData));
   }
 
