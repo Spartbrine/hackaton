@@ -17,3 +17,13 @@
 .navbar-toggler {
   border: none; /* Elimina el borde si es necesario */
 }
+.card {
+  margin: 30px; /* Espaciado entre tarjetas */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza el cambio de estilos */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+}
