@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import {FormsModule } from '@angular/forms'
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { User } from '../../shared/interfaces';
 import { NavbarComponent } from './../../components/navbar/navbar.component'
-
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, NavbarComponent],
+  imports: [FormsModule, NavbarComponent, ReactiveFormsModule, CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -16,8 +18,26 @@ export class LoginComponent {
     id:0,
     name:'',
     email:'',
-    password:''
+    password:'',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   }
 
-  users : User[] = [];
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email,Validators.maxLength(50)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  });
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
+  }
+
+  passwordFieldType: string = 'password';
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
 }
