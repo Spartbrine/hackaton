@@ -12,7 +12,7 @@ export interface User extends Model {
 
 export interface Post extends Model {
 
-  comemnts?:Comment[]
+  comments?:Comment[]
 }
 
 export interface Comemnt extends Model {
