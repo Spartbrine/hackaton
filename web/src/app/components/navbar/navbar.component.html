@@ -1,7 +1,7 @@
 <div>
   <nav class="navbar bg-white fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" routerLink="#">
         <img
           src="https://img.freepik.com/vector-gratis/vector-diseno-degradado-colorido-pajaro_343694-2506.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1723075200&semt=ais_hybrid"
           alt=""
@@ -9,7 +9,7 @@
           style="max-width: 90px; max-height: 30px"
         />
       </a>
-      <a class="navbar-brand" href="#" style="color: #000; font-family: 'Roboto', sans-serif;">LifeCircle</a>
+      <a class="navbar-brand" routerLink="#" style="color: #000; font-family: 'Roboto', sans-serif;">LifeCircle</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,22 +21,22 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" style="color: #000;">Inicio</a>
+              <a class="nav-link active" aria-current="page" routerLink="#" style="color: #000;">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" style="color: #000;">Nosotros</a>
+              <a class="nav-link" routerLink="#" style="color: #000;">Nosotros</a>
             </li>
             <li class="nav-item dropdown">
               <div class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #000;">
                 Cuentas
               </div>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/login">Iniciar Sesión</a></li>
-                <li><a class="dropdown-item" href="/register">Registrar Cuenta</a></li>
+                <li><a class="dropdown-item" routerLink="/login">Iniciar Sesión</a></li>
+                <li><a class="dropdown-item" routerLink="/register">Registrar Cuenta</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="/help">Atención al cliente</a></li>
+                <li><a class="dropdown-item" routerLink="/faq">Preguntas Frecuentes</a></li>
               </ul>
             </li>
           </ul>

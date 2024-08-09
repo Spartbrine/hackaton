@@ -1,0 +1,43 @@
+.navbar {
+  background-color: #ffffff; // Color de fondo blanco para un look limpio
+  border-bottom: 1px solid #e0e0e0; // Línea sutil en la parte inferior para separación
+
+  .navbar-brand {
+    img.navbar-logo {
+      height: 36px; // Altura más discreta
+    }
+  }
+
+  .navbar-toggler {
+    border: none;
+    outline: none;
+
+    .navbar-toggler-icon {
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" fill="%23333"/%3E%3C/svg%3E');
+      background-size: 20px 20px;
+    }
+  }
+
+  .navbar-nav {
+    margin-right: auto; // Mantiene los elementos del navbar a la izquierda
+  }
+
+  .d-flex {
+    a.btn {
+      margin-left: 8px; // Espacio entre los botones
+      border-radius: 5px; // Bordes redondeados para un aspecto moderno
+      padding: 6px 12px; // Ajuste del tamaño del botón
+    }
+
+    .btn-outline-secondary {
+      border-color: #6c757d;
+      color: #6c757d;
+
+      &:hover {
+        background-color: #e9ecef;
+        color: #495057;
+        border-color: #6c757d;
+      }
+    }
+  }
+}
