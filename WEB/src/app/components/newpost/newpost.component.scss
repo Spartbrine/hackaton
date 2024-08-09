@@ -78,3 +78,81 @@ label:hover{
     }
   }
 }
+
+// Estilos para la sección de crear publicación
+.post-creation-container {
+  max-width: 800px;
+  min-width: 320px;
+  height: 80px;  // Hacerlo más delgado
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #dbdbdb;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    border-color: #c0c0c0;
+  }
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+
+  .profile-icon {
+    width: 50px; // Mantener tamaño de ícono
+    height: 50px;
+    font-size: 50px;
+    color: #262626;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    border: 1px solid #dbdbdb;
+    padding: 8px;
+  }
+}
+
+.post-input-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  .post-label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    background-color: #fafafa;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  .post-text {
+    font-size: 16px; // Ajustar tamaño de texto
+    font-weight: 400;
+    margin: 0;
+    color: #262626;
+    flex: 1;
+  }
+
+  .add-icon {
+    font-size: 24px; // Ajustar tamaño de ícono
+    color: #009688;
+    margin-left: 10px;
+  }
+}
+
