@@ -20,10 +20,7 @@ class PublicationController extends Controller
             ], 404);
         }
 
-        return response()->json([
-            'publications' => $publications,
-            'status' => 200
-        ], 200);
+        return response()->json($publications);
     }
 
     public function store(Request $request)

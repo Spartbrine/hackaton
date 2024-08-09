@@ -11,5 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class PostsComponent {
   @Input() posts: Post[] = [];
-
+  ngOnInit(){
+    console.log('Posts:', this.posts)
+  }
 }

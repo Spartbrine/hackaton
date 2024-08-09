@@ -11,11 +11,11 @@ export interface User extends Model {
 }
 
 export interface Post extends Model {
-  interactions:number;
+  interactions:string;
   description:string;
   comments?:Comment[]
 }
 
-export interface Comemnt extends Model {
+export interface Comment extends Model {
 
 }
