@@ -1,13 +1,13 @@
-<div class="row shadow mx-auto my-2 p-2" style="max-width: 600px; min-width: 300px; height: 100px;">
-  <div class="col-3 p-0 col-md-2 d-flex justify-content-center align-items-center">
-    <mat-icon style="width: 40px; height: 40px; font-size: 40px;">account_circle</mat-icon>
-  </div>
-  <div class="col-9 col-md-10 d-flex align-items-center p-2">
-    <label class="w-100 h-100 label-hover p-0 d-flex justify-content-center align-items-center" (click)="openDialog()">
-      <h5 class="ml-2 ml-md-4 my-auto float-left py-2 py-md-4 text-center text-md-left">
-        Crear Publicación
-        <mat-icon class="py-1">add</mat-icon>
-      </h5>
-    </label>
+<div class="post-creation-container shadow-sm mx-auto my-3 p-3">
+  <div class="d-flex align-items-center">
+    <div class="profile-section d-flex align-items-center">
+      <mat-icon class="profile-icon">account_circle</mat-icon>
+    </div>
+    <div class="post-input-container ml-3">
+      <label class="post-label" (click)="openDialog()">
+        <h5 class="post-text">Crear publicación</h5>
+        <mat-icon class="add-icon">add_circle_outline</mat-icon>
+      </label>
+    </div>
   </div>
 </div>
