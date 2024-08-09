@@ -23,6 +23,10 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path:'faq',
+    loadComponent:() => import('./@pages/faq/faq.component').then(m => m.FaqComponent)
+  },
+  {
     path: '**',
     redirectTo: '/welcome'
   }
