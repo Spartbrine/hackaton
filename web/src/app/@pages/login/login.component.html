@@ -1,23 +1,48 @@
+<app-navbar></app-navbar>
 <div class="container-fluid h-100 p-0 w-100">
   <div class="d-flex align-items-center h-100 w-100">
     <div class="row w-100">
-      <div class="col-6 p-0 d-flex justify-content-center w-50">
-        <form class="form">
+      <div class="col-12 col-md-6 p-0 d-flex justify-content-center w-50">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
           <p class="text-center title"> ¡Bienvenido! </p>
           <p class="message">Inicia Sesión para poderte brindar ayuda. </p>
+
           <label>
-              <input required="" placeholder="" type="email" class="input">
-              <span>Correo</span>
+            <input formControlName="email" placeholder="" type="text" class="input" required>
+            <span>Correo</span>
+            <div *ngIf="loginForm.get('email')!.invalid && loginForm.get('email')!.touched" class="error">
+              Correo inválido
+            </div>
           </label>
+
           <label>
-              <input required="" placeholder="" type="password" class="input">
-              <span>Contraseña</span>
+            <input [type]="passwordFieldType" formControlName="password" placeholder="" class="input" required>
+            <span>Contraseña</span>
+            <mat-icon class="password-toggle" (click)="togglePasswordVisibility()">
+              {{ passwordFieldType === 'password' ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+            <div *ngIf="loginForm.get('password')!.invalid && loginForm.get('password')!.touched" class="error">
+              La contraseña debe tener al menos 8 caracteres
+            </div>
           </label>
-          <button [disabled]="" class="submit">Registrarse</button>
+
+          <div *ngIf="error_msg !== ''" class="error">
+            {{ error_msg }}
+          </div>
+
+
+          <button
+          [disabled]="loginForm.invalid"
+          class="submit"
+          [ngClass]="{'submit-disabled': loginForm.invalid}">
+          Iniciar Sesión
+          </button>
+
           <p class="signin">No tienes una cuenta? <a href="/register">Registrate</a> </p>
         </form>
+
       </div>
-      <div class="col-6 d-none d-md-block align-self-center p-0 w-50">
+      <div class="col-md-6 d-none d-md-block align-self-center p-0 w-50">
         <img class="img-fluid"
         src="https://cdn-3.expansion.mx/dims4/default/5acea81/2147483647/strip/true/crop/1254x836+0+0/resize/1800x1200!/format/webp/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2F1e%2Ff1%2Fb433b3fc4ab99aa6b100ed079bb6%2Fmujeres-redes-apoyo.jpg">
       </div>
