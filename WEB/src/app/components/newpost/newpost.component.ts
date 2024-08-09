@@ -9,10 +9,11 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-newpost',
   standalone: true,
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, MatIconModule, MatButtonModule],
   templateUrl: './newpost.component.html',
   styleUrl: './newpost.component.scss'
 })
@@ -32,5 +33,5 @@ export class NewpostComponent {
 })
 export class CreatePostDialogComponent {
     readonly dialogRef = inject(MatDialogRef<CreatePostDialogComponent>);
-    
+
 }
