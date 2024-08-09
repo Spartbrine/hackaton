@@ -9,7 +9,7 @@
 
           <div class="flex">
             <label>
-              <input formControlName="firstName" placeholder="" type="text" class="input">
+              <input formControlName="firstName" placeholder="" type="text" class="input" required>
               <span>Nombre(s)</span>
               <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error">
                 El nombre es requerido.
@@ -17,7 +17,7 @@
             </label>
 
             <label>
-              <input formControlName="lastName" placeholder="" type="text" class="input">
+              <input formControlName="lastName" placeholder="" type="text" class="input" required>
               <span>Apellido(s)</span>
               <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error">
                 El apellido es requerido.
@@ -26,7 +26,7 @@
           </div>
 
           <label>
-            <input formControlName="email" placeholder="" type="text" class="input">
+            <input formControlName="email" placeholder="" type="text" class="input" required>
             <span>Correo</span>
             <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
               Debe ser un correo válido.

@@ -14,6 +14,7 @@ import { Post, User } from '../../shared/interfaces';
 import { FormsModule } from '@angular/forms';
 import { PostsService } from '../../services/posts.service';
 import { stringify } from 'querystring';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-newpost',
   standalone: true,
@@ -50,21 +51,38 @@ export class CreatePostDialogComponent {
       password:'',
       name:''
     }
+
+    post: Post = {
+      description: '',
+      id: 0,
+      email:'',
+      interaction:'low'
+    };
+
     mail= '';
     ngOnInit(){
       let user = localStorage.getItem('loginForm');
       if(user) {
         this.user = JSON.parse(user)
         this.mail = this.user.email
+        console.log('Correo dado de alta:', this.mail)
+        this.post.email = this.mail
       }
     }
-    post: Post = {
-      description: '',
-      id: 0,
-      email:this.mail,
-      interactions:''
-    };
+
+    router = inject(Router)
+
+    reload() {
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl('/blank', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl(currentUrl);
+      });
+    }
+
     onSubmit() {
+      console.log('Post a publicar:', this.post)
       this.service.postPost(this.post).subscribe();
+      this.reload();
+      this.dialogRef.close();
     }
 }

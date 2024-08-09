@@ -8,11 +8,13 @@ export interface User extends Model {
   name: string;
   password: string;
   email: string;
+  lastname?:string;
+  typeuser?:string;
 }
 
 export interface Post extends Model {
   email?:string;
-  interactions:string;
+  interaction:string;
   description:string;
   comments?:Comment[]
 }

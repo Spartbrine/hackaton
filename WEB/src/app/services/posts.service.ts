@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Post } from '../shared/interfaces';
 import { Observable } from 'rxjs';
+import { environment } from '../../../public/enviroments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private apiUrl = 'http://127.0.0.1:8000/api/publications';
+  private ip = environment.apiUrl
+  private apiUrl = this.ip + '/api/publications';
 
   http = inject(HttpClient)
 

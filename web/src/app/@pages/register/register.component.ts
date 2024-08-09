@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { NavbarComponent } from './../../components/navbar/navbar.component'
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RegisterService } from '../../services/register.service';
+import { User } from '../../shared/interfaces';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -36,10 +39,28 @@ export class RegisterComponent {
     }
   }
 
+  service = inject(RegisterService)
+  router = inject(Router)
   onSubmit() {
     if (this.registerForm.valid && this.passwordMatchValidator() == true) {
       console.log(this.registerForm.value);
+      const formData = this.registerForm.value;
+      if(formData && formData.lastName && formData.firstName && formData.password && formData.email){
+        let user : User = {
+          id:0,
+          name:formData.firstName,
+          lastname:formData.lastName,
+          email:formData.email,
+          password:formData.password,
+          typeuser:'0'
+        }
+
+        this.service.register(user).subscribe();
+        this.router.navigateByUrl('/login')
+      }
     }
+
+
   }
 
   passwordFieldType: string = 'password';

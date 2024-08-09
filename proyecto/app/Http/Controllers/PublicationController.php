@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\Validator;
 class PublicationController extends Controller
 {
     public function index()
-    {
-        $publications = Publication::all();
+{
+    $publications = Publication::orderBy('created_at', 'desc')->get();
 
-        if ($publications->isEmpty()) {
-            return response()->json([
-                'message' => 'No se encontraron publicaciones',
-                'status' => 404
-            ], 404);
-        }
-
-        return response()->json($publications);
+    if ($publications->isEmpty()) {
+        return response()->json([
+            'message' => 'No se encontraron publicaciones',
+            'status' => 404
+        ], 404);
     }
+
+    return response()->json($publications);
+}
+
 
     public function store(Request $request)
     {

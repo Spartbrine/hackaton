@@ -19,7 +19,7 @@ import { response } from 'express';
 export class LoginComponent {
   service = inject(LoginService)
   router = inject(Router)
-  recoverUser : User | null = null
+  recoverUser : User | undefined
   ver_password : string = '';
   error_msg = '';
   user : User = {
@@ -39,12 +39,17 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Info Seteada', this.loginForm.value);
-      if(this.validateLogin() == true){
-        this.saveFormData()
-        this.router.navigateByUrl('');
-      } else {
-        this.error_msg = 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.';
-      }
+      this.validateLogin().then(isValid => {
+        if (isValid) {
+          this.saveFormData();
+          this.router.navigateByUrl('');
+        } else {
+          this.error_msg = 'Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.';
+        }
+      }).catch(error => {
+        console.error('Error during validation:', error);
+        this.error_msg = 'Hubo un problema al verificar las credenciales. Inténtalo de nuevo más tarde.';
+      });
     }
   }
 
@@ -60,13 +65,27 @@ export class LoginComponent {
         this.recoverUser = response
       })
     }
+
   }
 
-  validateLogin(): boolean{
-    if(this.loginForm.get('email')?.value =='pedro@correo.com' && this.loginForm.get('password')?.value == '12345678'){
-      return true
-    } else {
-      return false
+  async validateLogin(): Promise<boolean> {
+    try {
+      const email = this.loginForm.get('email')?.value;
+      if (email) {
+        // Convertir Observable a Promise
+        this.recoverUser = await this.service.checkUser(email).toPromise();
+      }
+
+      if (this.recoverUser &&
+          this.loginForm.get('email')?.value === this.recoverUser.email &&
+          this.loginForm.get('password')?.value === this.recoverUser.password) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Error validating login:', error);
+      return false;
     }
   }
 

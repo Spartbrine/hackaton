@@ -52,7 +52,8 @@ class UserController extends Controller
             'email' => $request->email,
             'name' => $request->name,
             'lastname' => $request->lastname,
-            'password' => bcrypt($request->password),
+            // 'password' => bcrypt($request->password),
+            'password' => $request->password,
             'typeuser' => $request->typeuser
         ]);
 
