@@ -1,0 +1,32 @@
+<<<<<<< HEAD
+.navbar-brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem; /* Ajusta el tamaño de fuente según sea necesario */
+  font-weight: 600; /* Negrita para un estilo más destacado */
+  background: linear-gradient(to right, #ff6f00, #c74a0b); /* Cambia los colores del degradado aquí */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Agrega una sombra ligera al texto para más contraste */
+}
+.navbar-toggler-icon {
+  width: 24px; /* Ajusta el tamaño aquí */
+  height: 24px; /* Ajusta el tamaño aquí */
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" fill="%23000"/%3E%3C/svg%3E'); /* Reemplaza el ícono aquí si lo deseas */
+}
+
+.navbar-toggler {
+  border: none; /* Elimina el borde si es necesario */
+}
+.card {
+  margin: 30px; /* Espaciado entre tarjetas */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza el cambio de estilos */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+}
+=======
+>>>>>>> c9eb191c058b8e0d596be5508e413c713ce66784
