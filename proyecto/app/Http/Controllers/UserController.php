@@ -89,7 +89,7 @@ class UserController extends Controller
             'status' => 200
         ];
 
-        return response()->json($data, 200);
+        return response()->json($user, 200);
     }
 
     public function update(Request $request, $email)

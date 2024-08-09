@@ -20,10 +20,7 @@ class CommentController extends Controller
             ], 404);
         }
 
-        return response()->json([
-            'comments' => $comments,
-            'status' => 200
-        ], 200);
+        return response()->json($comments);
     }
 
     public function store(Request $request)

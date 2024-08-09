@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { stringify } from 'querystring';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { response } from 'express';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,7 +17,9 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  service = inject(LoginService)
   router = inject(Router)
+  recoverUser : User | null = null
   ver_password : string = '';
   error_msg = '';
   user : User = {
@@ -47,6 +51,15 @@ export class LoginComponent {
   saveFormData() {
     const formData = this.loginForm.value;
     localStorage.setItem('loginForm', JSON.stringify(formData));
+  }
+
+  checkUser(){
+    let email = this.loginForm.get('email')?.value
+    if(email){
+      this.service.checkUser(email).subscribe(response => {
+        this.recoverUser = response
+      })
+    }
   }
 
   validateLogin(): boolean{

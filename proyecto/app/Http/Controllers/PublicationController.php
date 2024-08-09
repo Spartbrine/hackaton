@@ -26,9 +26,9 @@ class PublicationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'user_id' => 'required|integer|exists:users,id'
+            'description' => 'required|string|max:255',
+            'email' => 'required|string',
+            'id' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -40,9 +40,9 @@ class PublicationController extends Controller
         }
 
         $publication = Publication::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'user_id' => $request->user_id
+            'description' => $request->description,
+            'email' => $request->email,
+            'id' => $request->id
         ]);
 
         return response()->json([
