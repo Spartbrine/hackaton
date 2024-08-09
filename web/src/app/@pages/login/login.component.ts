@@ -5,6 +5,7 @@ import { NavbarComponent } from './../../components/navbar/navbar.component'
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
+import { stringify } from 'querystring';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -30,9 +31,16 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      console.log('Info Seteada', this.loginForm.value);
     }
+    this.saveFormData()
   }
+
+  saveFormData() {
+    const formData = this.loginForm.value;
+    localStorage.setItem('loginForm', JSON.stringify(formData));
+  }
+
 
   passwordFieldType: string = 'password';
 
