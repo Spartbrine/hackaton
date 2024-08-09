@@ -8,6 +8,10 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path:'welcomelogin',
+    loadComponent: () => import('./components/nvarlogin/nvarlogin.component').then(m => m.NvarloginComponent),
+  },
+  {
     path:'welcome',
     loadComponent: () => import('./components/welcome/welcome.component').then(m => m.WelcomeComponent),
   },
